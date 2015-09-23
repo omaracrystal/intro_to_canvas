@@ -20,6 +20,8 @@ for (var i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener('click', function(){
     if (this.id === 'clear') {
       clearCanvas();
+    } else if (this.id === 'fib') {
+      drawFibonacci();
     } else {
       drawRectangle(this.id);
     }
@@ -51,6 +53,28 @@ function drawRectangle(color) {
   context.fillRect(randomY, randomX, randomWidth, randomHeight);
 }
 
+var pixel_size = canvas.width/100;
+
+function drawPixel(x, y, color) {
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext('2d');
+  context.fillStyle = color;
+  context.fillRect(x*pixel_size, y*pixel_size, pixel_size, pixel_size);
+}
+
+function drawRow(rowNumber, rowLength){
+  for (var i = 0; i < rowLength; i++) {
+    drawPixel(rowNumber, i, 'green');
+  }
+}
+
+function drawFibonacci() {
+  for(rowNumber=0; rowNumber<15; rowNumber ++) {
+    var rowLength = fib(rowNumber);
+      drawRow(rowNumber, rowLength, "orange");
+  }
+}
+
 //recursive fibonacci function
 function fib(x) {
   if (x === 0) {
@@ -73,5 +97,3 @@ function printTo(number) {
     printTo(number);
   }
 }
-
-
